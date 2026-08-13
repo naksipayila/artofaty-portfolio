@@ -9,14 +9,14 @@
 ## Pages And Content
 - `app.vue` mounts the default layout (`SiteHeader`, `<main>`, `SiteFooter`). Main routes are `/`, `/roblox`, `/about`, and `/works/[id]`; `/works` is a 301 redirect to `/`.
 - `data/portfolio.ts` is the content source. `projects` drives detail routes, which `nuxt.config.ts` prerenders automatically.
-- `robloxProjects` has no detail routes. `pages/roblox.vue` displays `robloxProjects.slice(0, 14)` as a six-card featured mosaic followed by eight additional cards; a video is the lightbox media when available, otherwise the cover is used.
+- `robloxProjects` has no detail routes. `pages/roblox.vue` displays all 58 projects in `6 + 8 + 12 + 12 + 12 + 8` groups; a video is the lightbox media when available, otherwise the displayed cover is used.
 - All lightboxes require `.project-lightbox`, `data-lenis-prevent`, and `data-scroll-dismiss-lightbox` for desktop wheel dismissal.
 
 ## UI Contracts
 - `assets/css/main.css` is global and mobile-first; desktop overrides start at `@media (min-width: 761px)`. Preserve the mobile/desktop split when changing interactions.
 - Mobile lightboxes use horizontal swipes and a visible close button; desktop retains edge navigation controls. Refresh `useCustomCursor()` after lightbox DOM changes.
 - The Works dropdown is left-aligned on mobile and right-aligned on desktop to avoid mobile clipping.
-- The desktop Roblox gallery uses a six-card featured mosaic followed by an eight-card secondary mosaic; their `nth-child` spans assume the current 14 displayed projects.
+- Roblox thumbnail crop, mobile aspect-ratio, and desktop slot metadata live on each `robloxProjects` record. Desktop slot classes use dense grid placement and assume the current `6 + 8 + 12 + 12 + 12 + 8` grouping and render order.
 
 ## Assets And Deployment
 - Public URLs must honor `runtimeConfig.app.baseURL` or `withBaseURL`; never add root-absolute public paths. Montserrat is self-hosted in `public/fonts/` and declared/preloaded in `nuxt.config.ts`.
